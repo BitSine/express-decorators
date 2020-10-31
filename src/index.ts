@@ -1,7 +1,13 @@
-import express from 'express';
+import express, { Express } from 'express';
 
-export const app = express();
+/**
+ * DO NOT USE. ONLY USED FOR INTERNALS
+ */
+export let app = express();
 
+/**
+ * DO NOT USE. ONLY USED FOR INTERNALS
+ */
 export const router = express.Router({
 	strict: true,
 });
@@ -23,6 +29,10 @@ export function start(PORT: number, cb: () => void) {
  */
 export function set(setting: string, val: any) {
 	app.set(setting, val);
+}
+
+export function setApp(appToUse: Express) {
+	app = appToUse;
 }
 
 export * from './decorators';
