@@ -1,3 +1,4 @@
+import e from 'express';
 import { app, router } from '.';
 
 export function get(location: string) {
@@ -24,8 +25,15 @@ export function remove(location: string) {
 	};
 }
 
-export function use() {
+export function use(...paths: string[]) {
 	return (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) => {
-		app.use(descriptor.value);
+		if (paths[0]) {
+			for (let i = 0; i < paths.length; i++) {
+				const path = paths[i];
+				app.use(path, descriptor.value);
+			}
+		} else {
+			app.use(descriptor.value);
+		}
 	};
 }
