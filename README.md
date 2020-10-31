@@ -1,7 +1,9 @@
 # express-decorators
+
 ⌨ TypeScript decorator powered express apps.
 
 # example
+
 ```ts
 import { NextFunction, Request, Response } from 'express';
 import { start, get, use } from 'express-class';
@@ -31,5 +33,4 @@ class main {
 
 const yes = new main();
 start(8080, () => console.log(`Online`));
-
 ```
