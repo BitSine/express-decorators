@@ -12,5 +12,7 @@ export function start(port?: number) {
 		console.log(`Server is listening on http://localhost:${port || 8080}`);
 	});
 }
-
+export function set(setting: string, val: any) {
+	app.set(setting, val);
+}
 export * from './decorators';
