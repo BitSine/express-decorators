@@ -24,6 +24,10 @@ export function remove(location: string) {
 	};
 }
 
+/**
+ * sets the target function as a middleware
+ * @param paths optional. The paths to apply to. If this is empty it applies to all paths
+ */
 export function use(...paths: string[]) {
 	return (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) => {
 		if (paths[0]) {
