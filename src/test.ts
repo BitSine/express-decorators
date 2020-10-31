@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { get, start, use } from '.';
 
+// these only need to be loaded. Not instantiated
 class main {
 	@get('/')
 	req(_req: Request, res: Response, _next: NextFunction) {
@@ -26,7 +27,7 @@ class main {
 		next();
 	}
 
-	@use('/hi')
+	@use('/hi', '/api')
 	hi(req: Request, res: Response, next: NextFunction) {
 		console.log('saying hi');
 
@@ -34,5 +35,11 @@ class main {
 	}
 }
 
-const classes = [new main()];
+class resolver2 {
+	@get('/api')
+	api(_req: Request, res: Response, _next: NextFunction) {
+		res.send('hi');
+	}
+}
+
 start(8080, () => console.log('started on http://localhost:8080'));

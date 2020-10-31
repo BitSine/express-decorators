@@ -1,4 +1,3 @@
-import e from 'express';
 import { app, router } from '.';
 
 export function get(location: string) {
