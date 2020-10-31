@@ -1,5 +1,5 @@
 {
-	"name": "express-decorators",
+	"name": "express-class",
 	"version": "1.0.0",
 	"description": "",
 	"main": "dist/index.js",

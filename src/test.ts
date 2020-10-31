@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { start } from '.';
-import { get } from './decorators';
+import { get, use } from './decorators';
 
 class main {
 	@get('/')
@@ -17,6 +17,11 @@ class main {
 		res.json({
 			msge: 'hello, world!',
 		});
+	}
+	@use()
+	mid(req: Request, res: Response, next: NextFunction) {
+		console.log(res.statusCode);
+		next();
 	}
 }
 
