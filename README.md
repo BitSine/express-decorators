@@ -30,6 +30,6 @@ class main {
 }
 
 const yes = new main();
-start();
+start(8080, () => console.log(`Online`));
 
 ```
