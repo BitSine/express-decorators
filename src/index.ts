@@ -6,11 +6,9 @@ export const router = express.Router({
 	strict: true,
 });
 
-export function start(port?: number) {
+export function start(PORT: number, cb: () => void) {
 	app.use(router);
-	app.listen(port || 8080, () => {
-		console.log(`Server is listening on http://localhost:${port || 8080}`);
-	});
+	app.listen(PORT, cb);
 }
 export function set(setting: string, val: any) {
 	app.set(setting, val);

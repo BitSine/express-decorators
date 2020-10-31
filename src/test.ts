@@ -26,4 +26,4 @@ class main {
 }
 
 const yes = new main();
-start();
+start(8080, () => console.log('started on http://localhost:8080'));
