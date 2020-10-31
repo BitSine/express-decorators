@@ -1,4 +1,4 @@
-import { router } from '.';
+import { app, router } from '.';
 
 export function get(location: string) {
 	return (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) => {
@@ -21,5 +21,11 @@ export function put(location: string) {
 export function remove(location: string) {
 	return (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) => {
 		router.delete(location, descriptor.value);
+	};
+}
+
+export function use() {
+	return (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) => {
+		app.use(descriptor.value);
 	};
 }

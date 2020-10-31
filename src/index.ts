@@ -1,7 +1,6 @@
 import express from 'express';
 
-const app = express();
-app.use(express.json());
+export const app = express();
 
 export const router = express.Router({
 	strict: true,
