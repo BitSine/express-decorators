@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { start } from '.';
-import { get } from './decorators/get';
+import { get } from './decorators';
 
 class main {
 	@get('/')
