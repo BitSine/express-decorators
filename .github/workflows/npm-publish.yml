@@ -28,7 +28,7 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: yarn
-      - run: yarn publish --non-interactive --new-version ${{ GITHUB_REF }}
+      - run: yarn publish --non-interactive --new-version ${{ env.GITHUB_REF }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
 
