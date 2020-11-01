@@ -18,6 +18,9 @@ export function put(location: string) {
 	};
 }
 
+/**
+ * use this as delete
+ */
 export function remove(location: string) {
 	return (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) => {
 		_router.delete(location, descriptor.value);
