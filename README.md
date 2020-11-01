@@ -1,14 +1,17 @@
-# express-decorators
+# express-class
+
 ⌨ TypeScript decorator powered express apps.
 
-# example
+## example
+
 ```ts
 import { NextFunction, Request, Response } from 'express';
-import { start, get, use } from 'express-class';
+import { get, start, use } from 'express-class';
 
+// these only need to be loaded. Not instantiated
 class main {
 	@get('/')
-	req(req: Request, res: Response, next: NextFunction) {
+	req(_req: Request, res: Response, _next: NextFunction) {
 		res.status(200);
 		res.json({
 			e: 'e',
@@ -16,20 +19,35 @@ class main {
 	}
 
 	@get('/hi')
-	req2(req: Request, res: Response, next: NextFunction) {
+	req2(_req: Request, res: Response, _next: NextFunction) {
 		res.status(200);
 		res.json({
-			msge: 'hello, world!',
+			msg: 'hello, world!',
 		});
 	}
+
 	@use()
 	mid(req: Request, res: Response, next: NextFunction) {
 		console.log(res.statusCode);
+		console.log(`running ${req.url}`);
+
+		next();
+	}
+
+	@use('/hi', '/api')
+	hi(req: Request, res: Response, next: NextFunction) {
+		console.log('saying hi');
+
 		next();
 	}
 }
 
-const yes = new main();
-start(8080, () => console.log(`Online`));
+class resolver2 {
+	@get('/api')
+	api(_req: Request, res: Response, _next: NextFunction) {
+		res.send('hi');
+	}
+}
 
+start(8080, () => console.log('started on http://localhost:8080'));
 ```
