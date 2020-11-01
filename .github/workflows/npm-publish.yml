@@ -28,6 +28,8 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: yarn
+      - run: git config --global user.email "ci@tnt-man-inc.com"
+      - run: git config --global user.name "ci"
       - name: Set output
         id: vars
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
@@ -45,6 +47,8 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
       - run: yarn
+      - run: git config --global user.email "ci@tnt-man-inc.com"
+      - run: git config --global user.name "ci"
       - name: Set output
         id: vars
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
