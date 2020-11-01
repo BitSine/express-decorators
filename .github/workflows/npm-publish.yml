@@ -28,7 +28,10 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: yarn
-      - run: yarn publish --non-interactive --new-version ${{github.ref##*/}}
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - run: yarn publish --non-interactive --new-version ${{ steps.vars.outputs.tag }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
 
@@ -42,6 +45,9 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
       - run: yarn
-      - run: yarn publish --non-interactive --new-version ${{github.ref##*/}}
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - run: yarn publish --non-interactive --new-version ${{ steps.vars.outputs.tag }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
