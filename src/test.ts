@@ -42,4 +42,6 @@ class resolver2 {
 	}
 }
 
-start(8080, () => console.log('started on http://localhost:8080'));
+start(8080, () =>
+	console.log(`started on http://localhost:8080 on a ${process.platform}`),
+);

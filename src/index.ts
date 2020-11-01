@@ -19,6 +19,10 @@ export const _router = express.Router({
  */
 export function start(PORT: number, cb: () => void) {
 	_app.use(_router);
+	_app.use((_req, res, next) => {
+		res.setHeader('X-Framework', 'express-class');
+		next();
+	});
 	_app.listen(PORT, cb);
 }
 
