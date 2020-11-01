@@ -54,4 +54,4 @@ jobs:
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       - run: yarn publish --non-interactive --new-version ${{ steps.vars.outputs.tag }}
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ github.token }}
