@@ -76,8 +76,8 @@ export function use(...paths: string[]) {
 
 export function resolver(path: string) {
 	return (constructor: Function) => {
-		for (let I = 0; I < reqs.length; I++) {
-			const req = reqs[I];
+		for (let i = 0; i < reqs.length; i++) {
+			const req = reqs[i];
 			if (req.target === constructor.name) {
 				switch (req.type) {
 					case 'get':
