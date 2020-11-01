@@ -6,9 +6,10 @@
 
 ```ts
 import { NextFunction, Request, Response } from 'express';
-import { get, start, use } from 'express-class';
+import { get, start, use, resolver } from 'express-class';
 
 // these only need to be loaded. Not instantiated
+@resolver('')
 class main {
 	@get('/')
 	req(_req: Request, res: Response, _next: NextFunction) {
@@ -34,7 +35,7 @@ class main {
 		next();
 	}
 
-	@use('/hi', '/api')
+	@use('/hi', '/api/hi')
 	hi(req: Request, res: Response, next: NextFunction) {
 		console.log('saying hi');
 
@@ -42,8 +43,9 @@ class main {
 	}
 }
 
+@resolver('/api')
 class resolver2 {
-	@get('/api')
+	@get('/hi')
 	api(_req: Request, res: Response, _next: NextFunction) {
 		res.send('hi');
 	}
