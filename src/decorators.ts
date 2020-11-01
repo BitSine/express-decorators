@@ -1,20 +1,45 @@
+import { RequestHandler } from 'express';
 import { _app, _router } from '.';
 
+interface req {
+	val: any;
+	location: string;
+	target: string;
+	type: string;
+}
+
+let reqs: req[] = [];
+
 export function get(location: string) {
-	return (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) => {
-		_router.get(location, descriptor.value);
+	return (target: Object, _propertyKey: string, descriptor: PropertyDescriptor) => {
+		reqs.push({
+			location,
+			val: descriptor.value,
+			target: target.constructor.name,
+			type: 'get',
+		});
 	};
 }
 
 export function post(location: string) {
-	return (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) => {
-		_router.post(location, descriptor.value);
+	return (target: Object, _propertyKey: string, descriptor: PropertyDescriptor) => {
+		reqs.push({
+			location,
+			val: descriptor.value,
+			target: target.constructor.name,
+			type: 'post',
+		});
 	};
 }
 
 export function put(location: string) {
-	return (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) => {
-		_router.put(location, descriptor.value);
+	return (target: Object, _propertyKey: string, descriptor: PropertyDescriptor) => {
+		reqs.push({
+			location,
+			val: descriptor.value,
+			target: target.constructor.name,
+			type: 'put',
+		});
 	};
 }
 
@@ -22,8 +47,13 @@ export function put(location: string) {
  * use this as delete
  */
 export function remove(location: string) {
-	return (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) => {
-		_router.delete(location, descriptor.value);
+	return (target: Object, _propertyKey: string, descriptor: PropertyDescriptor) => {
+		reqs.push({
+			location,
+			val: descriptor.value,
+			target: target.constructor.name,
+			type: 'delete',
+		});
 	};
 }
 
@@ -40,6 +70,33 @@ export function use(...paths: string[]) {
 			}
 		} else {
 			_app.use(descriptor.value);
+		}
+	};
+}
+
+export function resolver(path: string) {
+	return (constructor: Function) => {
+		for (let I = 0; I < reqs.length; I++) {
+			const req = reqs[I];
+			if (req.target === constructor.name) {
+				switch (req.type) {
+					case 'get':
+						_router.get(path + req.location, req.val);
+						break;
+					case 'post':
+						_router.post(path + req.location, req.val);
+						break;
+					case 'put':
+						_router.put(path + req.location, req.val);
+						break;
+					case 'delete':
+						_router.delete(path + req.location, req.val);
+						break;
+
+					default:
+						break;
+				}
+			}
 		}
 	};
 }

@@ -68,5 +68,5 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/BitSine/express-decorators.git"
-	  }
+	}
 }
