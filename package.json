@@ -2,11 +2,12 @@
 	"name": "express-class",
 	"version": "0.2.0",
 	"description": "",
-	"main": "dist/index.js",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
 	"scripts": {
 		"test": "ts-node-dev --respawn --transpile-only --poll src/test.ts",
 		"lint": "prettier --write .",
-		"build": "tsc"
+		"build": "ts-node build.ts"
 	},
 	"keywords": [],
 	"author": "",
