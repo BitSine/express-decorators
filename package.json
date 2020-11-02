@@ -9,7 +9,11 @@
 		"lint": "prettier --write .",
 		"build": "ts-node build.ts"
 	},
-	"keywords": [],
+	"keywords": [
+		"express",
+		"ts",
+		"decorators"
+	],
 	"author": "",
 	"license": "MIT",
 	"devDependencies": {
