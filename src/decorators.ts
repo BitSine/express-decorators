@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import { _app, _router } from '.';
 
 interface req {
-	val: any;
+	val: RequestHandler;
 	location: string;
 	target: string;
 	type: string;
@@ -11,7 +11,11 @@ interface req {
 let reqs: req[] = [];
 
 export function get(location: string) {
-	return (target: Object, _propertyKey: string, descriptor: PropertyDescriptor) => {
+	return (
+		target: Object,
+		_propertyKey: string,
+		descriptor: TypedPropertyDescriptor<RequestHandler>,
+	) => {
 		reqs.push({
 			location,
 			val: descriptor.value,
@@ -22,7 +26,11 @@ export function get(location: string) {
 }
 
 export function post(location: string) {
-	return (target: Object, _propertyKey: string, descriptor: PropertyDescriptor) => {
+	return (
+		target: Object,
+		_propertyKey: string,
+		descriptor: TypedPropertyDescriptor<RequestHandler>,
+	) => {
 		reqs.push({
 			location,
 			val: descriptor.value,
@@ -33,7 +41,11 @@ export function post(location: string) {
 }
 
 export function put(location: string) {
-	return (target: Object, _propertyKey: string, descriptor: PropertyDescriptor) => {
+	return (
+		target: Object,
+		_propertyKey: string,
+		descriptor: TypedPropertyDescriptor<RequestHandler>,
+	) => {
 		reqs.push({
 			location,
 			val: descriptor.value,
@@ -47,7 +59,11 @@ export function put(location: string) {
  * use this as delete
  */
 export function remove(location: string) {
-	return (target: Object, _propertyKey: string, descriptor: PropertyDescriptor) => {
+	return (
+		target: Object,
+		_propertyKey: string,
+		descriptor: TypedPropertyDescriptor<RequestHandler>,
+	) => {
 		reqs.push({
 			location,
 			val: descriptor.value,
@@ -62,7 +78,11 @@ export function remove(location: string) {
  * @param paths optional. The paths to apply to. If this is empty it applies to all paths
  */
 export function use(...paths: string[]) {
-	return (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) => {
+	return (
+		_target: any,
+		_propertyKey: string,
+		descriptor: TypedPropertyDescriptor<RequestHandler>,
+	) => {
 		if (paths[0]) {
 			for (let i = 0; i < paths.length; i++) {
 				const path = paths[i];
