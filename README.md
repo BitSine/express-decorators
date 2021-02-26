@@ -1,5 +1,7 @@
 # express-class
 
+(if you want something actually decent check out nestjs)
+
 ⌨ TypeScript decorator powered express apps.
 
 ## example
